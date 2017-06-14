@@ -37,6 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
+    'compressor',
+    'widget_tweaks',
+    'rest_framework',
+    'corsheaders',
+    'sorl.thumbnail',
+    'lebertel_api',
+    'lebertel_app'
 ]
 
 MIDDLEWARE = [
@@ -75,8 +83,12 @@ WSGI_APPLICATION = 'lebertel_api.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'lebertel_db',
+        'USER': 'postgres',
+        'PASSWORD': 'Stjo97480',
+        'HOST': 'localhost',
+        'PORT': '5432'
     }
 }
 
@@ -103,7 +115,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fr-FR'
 
 TIME_ZONE = 'UTC'
 
@@ -116,5 +128,24 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+location = lambda x: os.path.join(os.path.dirname(os.path.realpath(__file__)), x)
+
+STATICFILES_DIR = {
+    os.path.join(BASE_DIR, 'static')
+}
 
 STATIC_URL = '/static/'
+STATIC_ROOT = location('static')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = location('media')
+THUMBNAIL_DEBUG = True
+THUMBNAIL_KEY_PREFIX = 'oscar-sandbox'
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+
+LEBERTEL_IMAGE_FOLDER = 'images/products/%Y/%m/'
+
+AUTH_USER_MODEL = 'auth.User'
