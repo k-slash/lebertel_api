@@ -10,8 +10,8 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from rest_framework import viewsets
-from lebertel_app.serializers import UserSerializer, GroupSerializer, ProductSerializer, ProductImageSerializer
-from lebertel_app.models import Product, ProductImage
+from lebertel_app.serializers import UserSerializer, GroupSerializer, ProductSerializer, ProductImageSerializer, UserLocationSerializer
+from lebertel_app.models import Product, ProductImage, UserLocation
 
 
 
@@ -21,6 +21,13 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
+
+class UserLocationViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = UserLocation.objects.all()
+    serializer_class = UserLocationSerializer
 
 
 class GroupViewSet(viewsets.ModelViewSet):

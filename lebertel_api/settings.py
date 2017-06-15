@@ -37,12 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.gis',
     'django_extensions',
     'compressor',
     'widget_tweaks',
     'rest_framework',
+    'rest_framework_gis',
     'corsheaders',
     'sorl.thumbnail',
+    'django_countries',
     'lebertel_api',
     'lebertel_app'
 ]
@@ -80,10 +83,11 @@ WSGI_APPLICATION = 'lebertel_api.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
+#'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'lebertel_db',
         'USER': 'postgres',
         'PASSWORD': 'Stjo97480',
@@ -149,3 +153,14 @@ CORS_ALLOW_CREDENTIALS = True
 LEBERTEL_IMAGE_FOLDER = 'images/products/%Y/%m/'
 
 AUTH_USER_MODEL = 'auth.User'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+}
