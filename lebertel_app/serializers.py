@@ -4,24 +4,16 @@ from django_countries.serializer_fields import CountryField
 from rest_framework_gis.serializers import GeoFeatureModelSerializer
 from lebertel_app import models
 
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('url', 'username', 'email', 'groups', 'password')
+        fields = ('id', 'url', 'username', 'first_name', 'last_name', 'email', 'groups', 'password')
         write_only_fields = ('password')
     def create(self, validated_data):
         user = super(UserSerializer, self).create(validated_data)
         user.set_password(validated_data['password'])
         user.save()
         return user
-
-'''
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = User
-        fields = ('url', 'username', 'email', 'groups', 'password')
-'''
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

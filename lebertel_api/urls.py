@@ -22,7 +22,6 @@ from lebertel_app import views
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
-router.register(r'userLocation', views.UserLocationViewSet)
 router.register(r'groups', views.GroupViewSet)
 router.register(r'products', views.ProductViewSet)
 router.register(r'productImages', views.ProductImageViewSet)
@@ -32,4 +31,5 @@ urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^admin/', admin.site.urls),
     url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
+    url('^userLocation/', views.UserLocationViewSet.as_view()),
 ]
