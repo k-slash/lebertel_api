@@ -28,8 +28,7 @@ class ProductImage(models.Model):
         on_delete=models.CASCADE,
         related_name='images',
         verbose_name='products')
-    original = models.ImageField(upload_to=settings.LEBERTEL_IMAGE_FOLDER,
-        max_length=255)
+    image = ImageField(upload_to=settings.LEBERTEL_IMAGE_FOLDER, blank=True)
     caption = models.CharField(max_length=200, blank=True)
 
     #: Use display_order to determine which is the "primary" image

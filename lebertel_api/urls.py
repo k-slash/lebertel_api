@@ -31,5 +31,6 @@ urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^admin/', admin.site.urls),
     url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
+    url('^user/', views.UserConnectedViewSet.as_view()),
     url('^userLocation/', views.UserLocationViewSet.as_view()),
 ]

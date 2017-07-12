@@ -34,6 +34,21 @@ class UserViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.SearchFilter,)
     search_fields = ('username', 'email',)
 
+class UserConnectedViewSet(generics.RetrieveUpdateAPIView):
+
+    """
+    API endpoint that allows users location to be viewed or edited.
+    """
+    serializer_class = UserSerializer
+    lookup_field = 'id'
+
+    def get_object(self):
+        user = self.request.user
+        return get_object_or_404(User, id=user.id)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
 class UserLocationViewSet(generics.RetrieveUpdateAPIView):
     """
     API endpoint that allows users location to be viewed or edited.
