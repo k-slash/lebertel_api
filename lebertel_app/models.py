@@ -3,8 +3,10 @@ from __future__ import unicode_literals
 
 from django.contrib.gis.db import models
 from django.conf import settings
-from sorl.thumbnail import ImageField
+from django.core.validators import RegexValidator
 from django_countries.fields import CountryField
+from easy_thumbnails.fields import ThumbnailerImageField
+
 
 
 # Create your models here.
@@ -28,7 +30,7 @@ class ProductImage(models.Model):
         on_delete=models.CASCADE,
         related_name='images',
         verbose_name='products')
-    image = ImageField(upload_to=settings.LEBERTEL_IMAGE_FOLDER, blank=True)
+    image = ThumbnailerImageField(upload_to=settings.LEBERTEL_IMAGE_FOLDER, blank=True)
     caption = models.CharField(max_length=200, blank=True)
 
     #: Use display_order to determine which is the "primary" image
@@ -50,3 +52,16 @@ class UserLocation(models.Model):
     state = models.CharField(max_length=100, blank=True)
     country = CountryField()
     location = models.PointField(blank=True)
+
+class UserProfile(models.Model):
+    """
+    A model which holds information about a particular profile
+    """
+    user = models.ForeignKey(
+        'auth.User',
+        null=False,
+        related_name='profile',
+        on_delete=models.CASCADE)
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+262692121212'. Up to 15 digits allowed.")
+    phone_number = models.CharField(validators=[phone_regex], max_length=15, blank=True)
+    avatar = ThumbnailerImageField(upload_to=settings.LEBERTEL_IMAGE_FOLDER, blank=True)

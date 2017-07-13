@@ -16,8 +16,8 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import generics
-from lebertel_app.serializers import UserSerializer, GroupSerializer, ProductSerializer, ProductImageSerializer, UserLocationSerializer
-from lebertel_app.models import Product, ProductImage, UserLocation
+from lebertel_app.serializers import *
+from lebertel_app.models import *
 from rest_framework import filters
 
 
@@ -59,6 +59,20 @@ class UserLocationViewSet(generics.RetrieveUpdateAPIView):
     def get_object(self):
         user = self.request.user
         return get_object_or_404(UserLocation, user=user)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+class UserProfileViewSet(generics.RetrieveUpdateAPIView):
+    """
+    API endpoint that allows users profile to be viewed or edited.
+    """
+    serializer_class = UserProfileSerializer
+    lookup_field = 'user'
+
+    def get_object(self):
+        user = self.request.user
+        return get_object_or_404(UserProfile, user=user)
 
     def put(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)

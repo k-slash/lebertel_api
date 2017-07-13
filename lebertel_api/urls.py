@@ -17,6 +17,8 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework import routers
 from rest_framework_jwt.views import obtain_jwt_token
+from django.conf import settings
+from django.conf.urls.static import static
 from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope, TokenHasScope
 from lebertel_app import views
 
@@ -33,4 +35,5 @@ urlpatterns = [
     url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     url('^user/', views.UserConnectedViewSet.as_view()),
     url('^userLocation/', views.UserLocationViewSet.as_view()),
-]
+    url('^userProfile/', views.UserProfileViewSet.as_view()),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'rest_framework_gis',
     'corsheaders',
     'sorl.thumbnail',
+    'easy_thumbnails',
     'django_countries',
     'lebertel_api',
     'lebertel_app'
@@ -172,4 +173,13 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
     ),
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
+}
+
+THUMBNAIL_ALIASES = {
+    '': {
+        'avatar': {'size': (50, 50), 'crop': True},
+        'small': {'size': (100, 100), 'crop': True},
+        'medium': {'size': (500, 500), 'crop': True},
+        'big': {'size': (1000, 1000), 'crop': True},
+    },
 }
