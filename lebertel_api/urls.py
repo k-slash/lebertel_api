@@ -26,14 +26,19 @@ router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
 router.register(r'products', views.ProductViewSet)
-router.register(r'productImages', views.ProductImageViewSet)
+router.register(r'products/images', views.ProductImageViewSet)
+router.register(r'userShowcases', views.UserShowcaseViewSet)
+router.register(r'userLocations', views.UserLocationViewSet)
+router.register(r'userProfiles', views.UserProfileViewSet)
 
 
 urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^admin/', admin.site.urls),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
-    url('^user/', views.UserConnectedViewSet.as_view()),
-    url('^userLocation/', views.UserLocationViewSet.as_view()),
-    url('^userProfile/', views.UserProfileViewSet.as_view()),
+    url('^user/$', views.UserConnectedViewSet.as_view()),
+    url('^user/profile/', views.UserConnectedProfileView.as_view()),
+    url('^user/location/', views.UserConnectedLocationView.as_view()),
+    url('^user/showcase/', views.UserConnectedShowcaseView.as_view()),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -41,11 +41,12 @@ class UserLocation(models.Model):
     """
     A model which holds information about a particular location
     """
-    user = models.ForeignKey(
+    user = models.OneToOneField(
         'auth.User',
         null=False,
         related_name='location',
-        on_delete=models.CASCADE)
+        on_delete=models.CASCADE
+    )
     address = models.CharField(max_length=255)
     postcode = models.CharField(max_length=64)
     city = models.CharField(max_length=100)
@@ -57,11 +58,38 @@ class UserProfile(models.Model):
     """
     A model which holds information about a particular profile
     """
-    user = models.ForeignKey(
+    user = models.OneToOneField(
         'auth.User',
         null=False,
         related_name='profile',
-        on_delete=models.CASCADE)
+        on_delete=models.CASCADE
+    )
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+262692121212'. Up to 15 digits allowed.")
     phone_number = models.CharField(validators=[phone_regex], max_length=15, blank=True)
     avatar = ThumbnailerImageField(upload_to=settings.LEBERTEL_IMAGE_FOLDER, blank=True)
+
+class UserShowcase(models.Model):
+    """
+    A model which holds information about a particular showcase
+    """
+    user = models.OneToOneField(
+        'auth.User',
+        null=False,
+        related_name='showcase',
+        on_delete=models.CASCADE
+    )
+    name = models.CharField(max_length=255, blank=True)
+    presentation = models.TextField(blank=True)
+    address = models.CharField(max_length=255, blank=True)
+    postcode = models.CharField(max_length=64, blank=True)
+    city = models.CharField(max_length=100, blank=True)
+    state = models.CharField(max_length=100, blank=True)
+    country = CountryField()
+    display_location = models.BooleanField(default=1)
+    location = models.PointField(blank=True, null=True)
+    display_email = models.BooleanField(default=1)
+    email = models.EmailField(max_length=70,blank=True)
+    display_phone_number = models.BooleanField(default=1)
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+262692121212'. Up to 15 digits allowed.")
+    phone_number = models.CharField(validators=[phone_regex], max_length=15, blank=True)
+    logo = ThumbnailerImageField(upload_to=settings.LEBERTEL_IMAGE_FOLDER, blank=True)

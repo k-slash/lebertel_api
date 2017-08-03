@@ -49,6 +49,13 @@ class UserProfileSerializer(serializers.ModelSerializer):
     def get_thumbnail_b(self, obj):
         return thumbnail_url(obj.avatar, 'big')
 
+class UserShowcaseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.UserShowcase
+        country = CountryField()
+        geo_field = "point"
+        fields = '__all__'
+
 class ProductImageSerializer(serializers.ModelSerializer):
     avatar = serializers.SerializerMethodField()
     thumb_small = serializers.SerializerMethodField('get_thumbnail_s')

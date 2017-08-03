@@ -13,14 +13,13 @@ from rest_framework import permissions
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from rest_framework import viewsets
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from rest_framework import generics
+from rest_framework import generics, mixins
 from lebertel_app.serializers import *
 from lebertel_app.models import *
 from rest_framework import filters
-
-
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -35,7 +34,6 @@ class UserViewSet(viewsets.ModelViewSet):
     search_fields = ('username', 'email',)
 
 class UserConnectedViewSet(generics.RetrieveUpdateAPIView):
-
     """
     API endpoint that allows users location to be viewed or edited.
     """
@@ -49,7 +47,14 @@ class UserConnectedViewSet(generics.RetrieveUpdateAPIView):
     def put(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
 
-class UserLocationViewSet(generics.RetrieveUpdateAPIView):
+class UserLocationViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users location to be viewed or edited.
+    """
+    queryset = UserLocation.objects.all()
+    serializer_class = UserLocationSerializer
+
+class UserConnectedLocationView(generics.RetrieveUpdateAPIView):
     """
     API endpoint that allows users location to be viewed or edited.
     """
@@ -63,9 +68,30 @@ class UserLocationViewSet(generics.RetrieveUpdateAPIView):
     def put(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
 
-class UserProfileViewSet(generics.RetrieveUpdateAPIView):
+class UserShowcaseViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows users profile to be viewed or edited.
+    API endpoint that allows users showcase to be viewed or edited.
+    """
+    queryset = UserShowcase.objects.all()
+    serializer_class = UserShowcaseSerializer
+
+class UserConnectedShowcaseView(generics.RetrieveUpdateAPIView):
+    """
+    API endpoint that allows users location to be viewed or edited.
+    """
+    serializer_class = UserShowcaseSerializer
+    lookup_field = 'user'
+
+    def get_object(self):
+        user = self.request.user
+        return get_object_or_404(UserShowcase, user=user)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+class UserConnectedProfileView(generics.RetrieveUpdateAPIView):
+    """
+    API endpoint that allows users location to be viewed or edited.
     """
     serializer_class = UserProfileSerializer
     lookup_field = 'user'
@@ -76,6 +102,13 @@ class UserProfileViewSet(generics.RetrieveUpdateAPIView):
 
     def put(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
+
+class UserProfileViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users profile to be viewed or edited.
+    """
+    queryset = UserProfile.objects.all()
+    serializer_class = UserProfileSerializer
 
 class GroupViewSet(viewsets.ModelViewSet):
     """

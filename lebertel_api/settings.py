@@ -177,8 +177,8 @@ REST_FRAMEWORK = {
 
 THUMBNAIL_ALIASES = {
     '': {
-        'avatar': {'size': (50, 50), 'crop': True},
-        'small': {'size': (100, 100), 'crop': True},
+        'avatar': {'size': (100, 100), 'crop': True},
+        'small': {'size': (250, 250), 'crop': True},
         'medium': {'size': (500, 500), 'crop': True},
         'big': {'size': (1000, 1000), 'crop': True},
     },
