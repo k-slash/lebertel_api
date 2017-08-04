@@ -51,7 +51,7 @@ class UserLocation(models.Model):
     postcode = models.CharField(max_length=64)
     city = models.CharField(max_length=100)
     state = models.CharField(max_length=100, blank=True)
-    country = CountryField()
+    country = CountryField(default='RE')
     location = models.PointField(blank=True)
 
 class UserProfile(models.Model):
@@ -84,7 +84,7 @@ class UserShowcase(models.Model):
     postcode = models.CharField(max_length=64, blank=True)
     city = models.CharField(max_length=100, blank=True)
     state = models.CharField(max_length=100, blank=True)
-    country = CountryField()
+    country = CountryField(default='RE')
     display_location = models.BooleanField(default=1)
     location = models.PointField(blank=True, null=True)
     display_email = models.BooleanField(default=1)
@@ -92,4 +92,10 @@ class UserShowcase(models.Model):
     display_phone_number = models.BooleanField(default=1)
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+262692121212'. Up to 15 digits allowed.")
     phone_number = models.CharField(validators=[phone_regex], max_length=15, blank=True)
+    facebook = models.CharField(max_length=255, blank=True)
+    linkedin = models.CharField(max_length=255, blank=True)
+    twitter = models.CharField(max_length=255, blank=True)
+    pinterest = models.CharField(max_length=255, blank=True)
+    timetable = models.TextField(blank=True)
+    informations = models.TextField(blank=True)
     logo = ThumbnailerImageField(upload_to=settings.LEBERTEL_IMAGE_FOLDER, blank=True)
