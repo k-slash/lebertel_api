@@ -99,3 +99,19 @@ class UserShowcase(models.Model):
     timetable = models.TextField(blank=True)
     informations = models.TextField(blank=True)
     logo = ThumbnailerImageField(upload_to=settings.LEBERTEL_IMAGE_FOLDER, blank=True)
+
+class ShowcaseImage(models.Model):
+    """
+    An image of a showcase
+    """
+    showcase = models.ForeignKey(
+        'UserShowcase',
+        on_delete=models.CASCADE,
+        related_name='images',
+        verbose_name='showcases')
+    image = ThumbnailerImageField(upload_to=settings.LEBERTEL_IMAGE_FOLDER, blank=True)
+    caption = models.CharField(max_length=200, blank=True)
+
+    #: Use display_order to determine which is the "primary" image
+    display_order = models.PositiveIntegerField(default=0)
+    date_created = models.DateTimeField(auto_now_add=True)

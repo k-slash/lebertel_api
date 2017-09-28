@@ -75,6 +75,41 @@ class UserShowcaseViewSet(viewsets.ModelViewSet):
     queryset = UserShowcase.objects.all()
     serializer_class = UserShowcaseSerializer
 
+class ShowcaseImageViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows products images to be viewed or edited.
+    """
+    queryset = ShowcaseImage.objects.all()
+    serializer_class = ShowcaseImageSerializer
+
+class ShowcaseImageGetView(generics.RetrieveUpdateDestroyAPIView):
+    """
+    API endpoint that allows users location to be viewed or edited.
+    """
+    serializer_class = ShowcaseImageSerializer
+
+    def get_object(self, pk=None):
+        pk = self.kwargs.get('pk')
+        return get_object_or_404(ShowcaseImage, id=pk)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def delete(self, request, pk):
+        object.delete()
+        return Response(data={'result': "OK"}, status=200)
+
+class ShowcaseImageListView(generics.ListAPIView):
+    """
+    API endpoint that show image list of one showcase.
+    """
+    serializer_class = ShowcaseImageSerializer
+
+    def get_queryset(self):
+        showcase = self.kwargs.get('showcase_pk')
+        return ShowcaseImage.objects.filter(showcase=showcase)
+
+
 class UserConnectedShowcaseView(generics.RetrieveUpdateAPIView):
     """
     API endpoint that allows users location to be viewed or edited.

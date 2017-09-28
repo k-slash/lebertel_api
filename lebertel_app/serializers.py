@@ -56,16 +56,27 @@ class UserShowcaseSerializer(serializers.ModelSerializer):
         geo_field = "point"
         fields = '__all__'
 
+class ShowcaseImageSerializer(serializers.ModelSerializer):
+    thumb_small = serializers.SerializerMethodField('get_thumbnail_s')
+    thumb_medium = serializers.SerializerMethodField('get_thumbnail_m')
+    thumb_big = serializers.SerializerMethodField('get_thumbnail_b')
+    class Meta:
+        model = models.ShowcaseImage
+        fields = '__all__'
+    def get_thumbnail_s(self, obj):
+        return thumbnail_url(obj.image, 'small')
+    def get_thumbnail_m(self, obj):
+        return thumbnail_url(obj.image, 'medium')
+    def get_thumbnail_b(self, obj):
+        return thumbnail_url(obj.image, 'big')
+
 class ProductImageSerializer(serializers.ModelSerializer):
-    avatar = serializers.SerializerMethodField()
     thumb_small = serializers.SerializerMethodField('get_thumbnail_s')
     thumb_medium = serializers.SerializerMethodField('get_thumbnail_m')
     thumb_big = serializers.SerializerMethodField('get_thumbnail_b')
     class Meta:
         model = models.ProductImage
         fields = '__all__'
-    def get_avatar(self, obj):
-        return thumbnail_url(obj.image, 'avatar')
     def get_thumbnail_s(self, obj):
         return thumbnail_url(obj.image, 'small')
     def get_thumbnail_m(self, obj):
