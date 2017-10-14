@@ -42,6 +42,7 @@ urlpatterns = [
     url('^user/profile/', views.UserConnectedProfileView.as_view()),
     url('^user/location/', views.UserConnectedLocationView.as_view()),
     url('^user/showcase/', views.UserConnectedShowcaseView.as_view()),
+    url('^user/products/', views.UserConnectedProductsListView.as_view()),
     url('^showcases/(?P<showcase_pk>[0-9]+)/images/', views.ShowcaseImageListView.as_view()),
     url('^showcases/(?P<showcase_pk>[0-9]+)/images/(?P<pk>[0-9]+)$', views.ShowcaseImageGetView.as_view()),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

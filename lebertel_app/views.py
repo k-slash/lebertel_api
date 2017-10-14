@@ -138,6 +138,17 @@ class UserConnectedProfileView(generics.RetrieveUpdateAPIView):
     def put(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
 
+class UserConnectedProductsListView(generics.ListAPIView):
+    """
+    API endpoint that show image list of one showcase.
+    """
+    serializer_class = ProductSerializer
+    lookup_field = 'owner'
+
+    def get_queryset(self):
+        owner = self.request.user
+        return Product.objects.filter(owner=owner)
+
 class UserProfileViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users profile to be viewed or edited.

@@ -87,4 +87,4 @@ class ProductImageSerializer(serializers.ModelSerializer):
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Product
-        fields = ('owner', 'name', 'price', 'description')
+        fields = ('id', 'name', 'price', 'description', 'date_created', 'owner_id')
