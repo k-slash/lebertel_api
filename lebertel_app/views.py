@@ -176,3 +176,30 @@ class ProductImageViewSet(viewsets.ModelViewSet):
     """
     queryset = ProductImage.objects.all()
     serializer_class = ProductImageSerializer
+
+class ProductImageListView(generics.ListAPIView):
+    """
+    API endpoint that show image list of one showcase.
+    """
+    serializer_class = ProductImageSerializer
+
+    def get_queryset(self):
+        product = self.kwargs.get('product_pk')
+        return ProductImage.objects.filter(product=product)
+
+class ProductImageGetView(generics.RetrieveUpdateDestroyAPIView):
+    """
+    API endpoint that allows users location to be viewed or edited.
+    """
+    serializer_class = ProductImageSerializer
+
+    def get_object(self, pk=None):
+        pk = self.kwargs.get('pk')
+        return get_object_or_404(ProductImage, id=pk)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def delete(self, request, pk):
+        object.delete()
+        return Response(data={'result': "OK"}, status=200)

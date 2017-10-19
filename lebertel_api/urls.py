@@ -25,12 +25,12 @@ from lebertel_app import views
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
-router.register(r'products', views.ProductViewSet)
-router.register(r'products/images', views.ProductImageViewSet)
 router.register(r'userShowcases', views.UserShowcaseViewSet)
 router.register(r'userLocations', views.UserLocationViewSet)
 router.register(r'userProfiles', views.UserProfileViewSet)
 router.register(r'showcases/images', views.ShowcaseImageViewSet)
+router.register(r'userProducts', views.ProductViewSet)
+router.register(r'products/images', views.ProductImageViewSet)
 
 
 urlpatterns = [
@@ -45,4 +45,6 @@ urlpatterns = [
     url('^user/products/', views.UserConnectedProductsListView.as_view()),
     url('^showcases/(?P<showcase_pk>[0-9]+)/images/', views.ShowcaseImageListView.as_view()),
     url('^showcases/(?P<showcase_pk>[0-9]+)/images/(?P<pk>[0-9]+)$', views.ShowcaseImageGetView.as_view()),
+    url('^products/(?P<product_pk>[0-9]+)/images/', views.ProductImageListView.as_view()),
+    url('^products/(?P<product_pk>[0-9]+)/images/(?P<pk>[0-9]+)$', views.ProductImageGetView.as_view()),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

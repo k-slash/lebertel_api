@@ -84,7 +84,7 @@ class ProductImageSerializer(serializers.ModelSerializer):
     def get_thumbnail_b(self, obj):
         return thumbnail_url(obj.image, 'big')
 
-class ProductSerializer(serializers.HyperlinkedModelSerializer):
+class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Product
-        fields = ('id', 'name', 'price', 'description', 'date_created', 'owner_id')
+        fields = '__all__'
