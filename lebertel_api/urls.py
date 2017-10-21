@@ -25,12 +25,12 @@ from lebertel_app import views
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
-router.register(r'userShowcases', views.UserShowcaseViewSet)
-router.register(r'userLocations', views.UserLocationViewSet)
-router.register(r'userProfiles', views.UserProfileViewSet)
-router.register(r'showcases/images', views.ShowcaseImageViewSet)
-router.register(r'userProducts', views.ProductViewSet)
-router.register(r'products/images', views.ProductImageViewSet)
+router.register(r'showcases', views.UserShowcaseViewSet)
+router.register(r'locations', views.UserLocationViewSet)
+router.register(r'profiles', views.UserProfileViewSet)
+router.register(r'showcase/images', views.ShowcaseImageViewSet)
+router.register(r'products', views.ProductViewSet)
+router.register(r'product/images', views.ProductImageViewSet)
 
 
 urlpatterns = [
@@ -43,6 +43,7 @@ urlpatterns = [
     url('^user/location/', views.UserConnectedLocationView.as_view()),
     url('^user/showcase/', views.UserConnectedShowcaseView.as_view()),
     url('^user/products/', views.UserConnectedProductsListView.as_view()),
+    url('^user/(?P<user_id>[0-9]+)/products/', views.UserProductsListView.as_view()),
     url('^showcases/(?P<showcase_pk>[0-9]+)/images/', views.ShowcaseImageListView.as_view()),
     url('^showcases/(?P<showcase_pk>[0-9]+)/images/(?P<pk>[0-9]+)$', views.ShowcaseImageGetView.as_view()),
     url('^products/(?P<product_pk>[0-9]+)/images/', views.ProductImageListView.as_view()),

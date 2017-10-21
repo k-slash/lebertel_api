@@ -43,7 +43,7 @@ class UserLocation(models.Model):
     """
     user = models.OneToOneField(
         'auth.User',
-        null=False,
+        primary_key=True,
         related_name='location',
         on_delete=models.CASCADE
     )
@@ -60,7 +60,7 @@ class UserProfile(models.Model):
     """
     user = models.OneToOneField(
         'auth.User',
-        null=False,
+        primary_key=True,
         related_name='profile',
         on_delete=models.CASCADE
     )
@@ -74,7 +74,7 @@ class UserShowcase(models.Model):
     """
     user = models.OneToOneField(
         'auth.User',
-        null=False,
+        primary_key=True,
         related_name='showcase',
         on_delete=models.CASCADE
     )

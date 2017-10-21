@@ -51,6 +51,9 @@ class UserLocationViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users location to be viewed or edited.
     """
+    permission_classes = [
+        permissions.IsAuthenticatedOrReadOnly
+    ]
     queryset = UserLocation.objects.all()
     serializer_class = UserLocationSerializer
 
@@ -72,6 +75,9 @@ class UserShowcaseViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users showcase to be viewed or edited.
     """
+    permission_classes = [
+        permissions.IsAuthenticatedOrReadOnly
+    ]
     queryset = UserShowcase.objects.all()
     serializer_class = UserShowcaseSerializer
 
@@ -79,6 +85,9 @@ class ShowcaseImageViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows products images to be viewed or edited.
     """
+    permission_classes = [
+        permissions.IsAuthenticatedOrReadOnly
+    ]
     queryset = ShowcaseImage.objects.all()
     serializer_class = ShowcaseImageSerializer
 
@@ -103,6 +112,9 @@ class ShowcaseImageListView(generics.ListAPIView):
     """
     API endpoint that show image list of one showcase.
     """
+    permission_classes = [
+        permissions.IsAuthenticatedOrReadOnly
+    ]
     serializer_class = ShowcaseImageSerializer
 
     def get_queryset(self):
@@ -149,10 +161,27 @@ class UserConnectedProductsListView(generics.ListAPIView):
         owner = self.request.user
         return Product.objects.filter(owner=owner)
 
+class UserProductsListView(generics.ListAPIView):
+    """
+    API endpoint that show image list of one showcase.
+    """
+    permission_classes = [
+        permissions.IsAuthenticatedOrReadOnly
+    ]
+    serializer_class = ProductSerializer
+    lookup_field = 'owner'
+
+    def get_queryset(self):
+        owner = self.kwargs.get('user_id')
+        return Product.objects.filter(owner=owner)
+
 class UserProfileViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users profile to be viewed or edited.
     """
+    permission_classes = [
+        permissions.IsAuthenticatedOrReadOnly
+    ]
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
 
@@ -167,6 +196,9 @@ class ProductViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows products to be viewed or edited.
     """
+    permission_classes = [
+        permissions.IsAuthenticatedOrReadOnly
+    ]
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
@@ -174,6 +206,9 @@ class ProductImageViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows products images to be viewed or edited.
     """
+    permission_classes = [
+        permissions.IsAuthenticatedOrReadOnly
+    ]
     queryset = ProductImage.objects.all()
     serializer_class = ProductImageSerializer
 
@@ -181,6 +216,9 @@ class ProductImageListView(generics.ListAPIView):
     """
     API endpoint that show image list of one showcase.
     """
+    permission_classes = [
+        permissions.IsAuthenticatedOrReadOnly
+    ]
     serializer_class = ProductImageSerializer
 
     def get_queryset(self):
