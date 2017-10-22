@@ -85,6 +85,7 @@ class ProductImageSerializer(serializers.ModelSerializer):
         return thumbnail_url(obj.image, 'big')
 
 class ProductSerializer(serializers.ModelSerializer):
+    images = ProductImageSerializer(many=True, read_only=True)
     class Meta:
         model = models.Product
         fields = '__all__'
