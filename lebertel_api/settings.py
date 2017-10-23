@@ -144,6 +144,7 @@ STATICFILES_DIR = {
     os.path.join(BASE_DIR, 'static')
 }
 
+SITE_URL = 'http://localhost:8000'
 STATIC_URL = '/static/'
 STATIC_ROOT = location('static')
 MEDIA_URL = '/media/'

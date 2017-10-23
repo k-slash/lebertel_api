@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User, Group
+from django.conf import settings
 from rest_framework import serializers
 from django_countries.serializer_fields import CountryField
 from rest_framework_gis.serializers import GeoFeatureModelSerializer
@@ -41,13 +42,13 @@ class UserProfileSerializer(serializers.ModelSerializer):
         model = models.UserProfile
         fields = '__all__'
     def get_thumbnail_avatar(self, obj):
-        return thumbnail_url(obj.avatar, 'avatar')
+        return settings.SITE_URL + thumbnail_url(obj.avatar, 'avatar')
     def get_thumbnail_s(self, obj):
-        return thumbnail_url(obj.avatar, 'small')
+        return settings.SITE_URL + thumbnail_url(obj.avatar, 'small')
     def get_thumbnail_m(self, obj):
-        return thumbnail_url(obj.avatar, 'medium')
+        return settings.SITE_URL + thumbnail_url(obj.avatar, 'medium')
     def get_thumbnail_b(self, obj):
-        return thumbnail_url(obj.avatar, 'big')
+        return settings.SITE_URL + thumbnail_url(obj.avatar, 'big')
 
 class UserShowcaseSerializer(serializers.ModelSerializer):
     class Meta:
@@ -64,11 +65,11 @@ class ShowcaseImageSerializer(serializers.ModelSerializer):
         model = models.ShowcaseImage
         fields = '__all__'
     def get_thumbnail_s(self, obj):
-        return thumbnail_url(obj.image, 'small')
+        return settings.SITE_URL + thumbnail_url(obj.image, 'small')
     def get_thumbnail_m(self, obj):
-        return thumbnail_url(obj.image, 'medium')
+        return settings.SITE_URL + thumbnail_url(obj.image, 'medium')
     def get_thumbnail_b(self, obj):
-        return thumbnail_url(obj.image, 'big')
+        return settings.SITE_URL + thumbnail_url(obj.image, 'big')
 
 class ProductImageSerializer(serializers.ModelSerializer):
     thumb_small = serializers.SerializerMethodField('get_thumbnail_s')
@@ -78,11 +79,11 @@ class ProductImageSerializer(serializers.ModelSerializer):
         model = models.ProductImage
         fields = '__all__'
     def get_thumbnail_s(self, obj):
-        return thumbnail_url(obj.image, 'small')
+        return settings.SITE_URL + thumbnail_url(obj.image, 'small')
     def get_thumbnail_m(self, obj):
-        return thumbnail_url(obj.image, 'medium')
+        return settings.SITE_URL + thumbnail_url(obj.image, 'medium')
     def get_thumbnail_b(self, obj):
-        return thumbnail_url(obj.image, 'big')
+        return settings.SITE_URL + thumbnail_url(obj.image, 'big')
 
 class ProductSerializer(serializers.ModelSerializer):
     images = ProductImageSerializer(many=True, read_only=True)
