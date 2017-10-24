@@ -19,7 +19,11 @@ class Product(models.Model):
     name     = models.CharField(max_length=255)
     date_created = models.DateTimeField(auto_now_add=True)
     price    = models.FloatField()
-    description = models.TextField(blank=True)
+    short_description = models.CharField(max_length=200, blank=True, null=True, default=None)
+    description = models.TextField(blank=True, null=True, default=None)
+    size = models.CharField(max_length=200, blank=True, null=True, default=None)
+    colors = models.CharField(max_length=200, blank=True, null=True, default=None)
+    materials = models.CharField(max_length=200, blank=True, null=True, default=None)
 
 class ProductImage(models.Model):
     """
