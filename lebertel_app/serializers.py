@@ -27,6 +27,7 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'name')
 
 class UserLocationSerializer(serializers.ModelSerializer):
+    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
     class Meta:
         model = models.UserLocation
         country = CountryField()
@@ -34,6 +35,7 @@ class UserLocationSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class UserProfileSerializer(serializers.ModelSerializer):
+    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
     thumb_avatar = serializers.SerializerMethodField('get_thumbnail_avatar')
     thumb_small = serializers.SerializerMethodField('get_thumbnail_s')
     thumb_medium = serializers.SerializerMethodField('get_thumbnail_m')
@@ -51,6 +53,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         return settings.SITE_URL + thumbnail_url(obj.avatar, 'big')
 
 class UserShowcaseSerializer(serializers.ModelSerializer):
+    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
     class Meta:
         model = models.UserShowcase
         country = CountryField()

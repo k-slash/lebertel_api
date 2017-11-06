@@ -71,17 +71,45 @@ class UserProfile(models.Model):
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+262692121212'. Up to 15 digits allowed.")
     phone_number = models.CharField(validators=[phone_regex], max_length=15, blank=True, null=True, default=None)
     avatar = ThumbnailerImageField(upload_to=settings.LEBERTEL_IMAGE_FOLDER, blank=True, null=True, default=None)
+    pro = models.BooleanField(default=1)
 
 class UserShowcase(models.Model):
     """
     A model which holds information about a particular showcase
     """
+    SHOWCASE_TYPE = (
+        ('artisan', 'Artisan'),
+        ('merchant', 'Commerçant'),
+        ('service', 'Service'),
+        ('association', 'Association')
+    )
+    ACTIVITY_TYPE = (
+        ('furniture_decoration', 'Ameublement et décoration'),
+        ('architecture_gardens', 'Architecture et jardins'),
+        ('jewellery_goldsmithing_watchmaking', 'Bijouterie, joaillerie, orfèvrerie et horlogerie'),
+        ('ceramic', 'Céramique'),
+        ('leather', 'Cuir'),
+        ('instrumental_factory', 'Facture instrumentale'),
+        ('graphic_design_printing', 'Graphisme et impression'),
+        ('games_toys_mechanical_works', 'Jeux, jouets et ouvrages mécaniques'),
+        ('luminaire', 'Luminaire'),
+        ('metal', 'Métal'),
+        ('fashion_accessories', 'Mode et accessoires'),
+        ('recovery', 'Restauration'),
+        ('show', 'Spectacle'),
+        ('tabletterie', 'Tabletterie'),
+        ('earth', 'Terre'),
+        ('textile', 'Textile'),
+        ('glass', 'Verre')
+    )
     user = models.OneToOneField(
         'auth.User',
         primary_key=True,
         related_name='showcase',
         on_delete=models.CASCADE
     )
+    showcase_type = models.CharField(max_length=40, choices=SHOWCASE_TYPE, blank=True, null=True, default=None)
+    activity_type = models.CharField(max_length=40, choices=ACTIVITY_TYPE, blank=True, null=True, default=None)
     name = models.CharField(max_length=255, blank=True, null=True, default=None)
     presentation = models.TextField(blank=True, null=True, default=None)
     address = models.CharField(max_length=255, blank=True, null=True, default=None)
@@ -119,3 +147,9 @@ class ShowcaseImage(models.Model):
     #: Use display_order to determine which is the "primary" image
     display_order = models.PositiveIntegerField(default=0)
     date_created = models.DateTimeField(auto_now_add=True)
+
+class ShowcaseType(models.Model):
+    """
+    An image of a showcase
+    """
+    name = models.CharField(max_length=200, blank=True)
