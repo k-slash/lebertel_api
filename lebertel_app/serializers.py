@@ -44,21 +44,30 @@ class UserProfileSerializer(serializers.ModelSerializer):
         model = models.UserProfile
         fields = '__all__'
     def get_thumbnail_avatar(self, obj):
-        return settings.SITE_URL + thumbnail_url(obj.avatar, 'avatar')
+        return settings.SITE_URL + thumbnail_url(obj.avatar, 'avatar_crop')
     def get_thumbnail_s(self, obj):
-        return settings.SITE_URL + thumbnail_url(obj.avatar, 'small')
+        return settings.SITE_URL + thumbnail_url(obj.avatar, 'small_crop')
     def get_thumbnail_m(self, obj):
-        return settings.SITE_URL + thumbnail_url(obj.avatar, 'medium')
+        return settings.SITE_URL + thumbnail_url(obj.avatar, 'medium_crop')
     def get_thumbnail_b(self, obj):
-        return settings.SITE_URL + thumbnail_url(obj.avatar, 'big')
+        return settings.SITE_URL + thumbnail_url(obj.avatar, 'big_crop')
 
 class UserShowcaseSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+    logo_small = serializers.SerializerMethodField('get_thumbnail_s')
+    logo_medium = serializers.SerializerMethodField('get_thumbnail_m')
+    logo_big = serializers.SerializerMethodField('get_thumbnail_b')
     class Meta:
         model = models.UserShowcase
         country = CountryField()
         geo_field = "point"
         fields = '__all__'
+    def get_thumbnail_s(self, obj):
+        return settings.SITE_URL + thumbnail_url(obj.logo, 'small_crop')
+    def get_thumbnail_m(self, obj):
+        return settings.SITE_URL + thumbnail_url(obj.logo, 'medium_crop')
+    def get_thumbnail_b(self, obj):
+        return settings.SITE_URL + thumbnail_url(obj.logo, 'big_crop')
 
 class ShowcaseImageSerializer(serializers.ModelSerializer):
     thumb_small = serializers.SerializerMethodField('get_thumbnail_s')

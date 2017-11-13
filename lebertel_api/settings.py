@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+CSRF_COOKIE_NAME = "csrftoken"
+
 
 # Application definition
 
@@ -178,9 +180,33 @@ REST_FRAMEWORK = {
 
 THUMBNAIL_ALIASES = {
     '': {
-        'avatar': {'size': (100, 100), 'crop': True},
-        'small': {'size': (250, 250), 'crop': True},
-        'medium': {'size': (500, 500), 'crop': True},
-        'big': {'size': (1000, 1000), 'crop': True},
+        'avatar_crop': {'size': (120, 120), 'crop': True},
+        'small_crop': {'size': (250, 250), 'crop': True},
+        'medium_crop': {'size': (500, 500), 'crop': True},
+        'big_crop': {'size': (1000, 1000), 'crop': True},
+        'avatar': {
+            'size': (120, 0),
+            'autocrop': True,
+            'crop': 'smart',
+            'upscale': True,
+        },
+        'small': {
+            'size': (250, 0),
+            'autocrop': True,
+            'crop': 'smart',
+            'upscale': True,
+        },
+        'medium': {
+            'size': (500, 0),
+            'autocrop': True,
+            'crop': 'smart',
+            'upscale': True,
+        },
+        'big': {
+            'size': (1000, 0),
+            'autocrop': True,
+            'crop': 'smart',
+            'upscale': True,
+        }
     },
 }
