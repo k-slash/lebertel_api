@@ -157,7 +157,7 @@ THUMBNAIL_KEY_PREFIX = 'oscar-sandbox'
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
-LEBERTEL_IMAGE_FOLDER = 'images/products/%Y/%m/'
+LEBERTEL_IMAGE_FOLDER = 'images/%Y/%m/'
 
 AUTH_USER_MODEL = 'auth.User'
 
