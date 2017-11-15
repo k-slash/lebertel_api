@@ -73,6 +73,7 @@ class ShowcaseImageSerializer(serializers.ModelSerializer):
     thumb_small = serializers.SerializerMethodField('get_thumbnail_s')
     thumb_medium = serializers.SerializerMethodField('get_thumbnail_m')
     thumb_big = serializers.SerializerMethodField('get_thumbnail_b')
+    url = serializers.SerializerMethodField('get_thumbnail_b_crop')
     class Meta:
         model = models.ShowcaseImage
         fields = '__all__'
@@ -82,11 +83,14 @@ class ShowcaseImageSerializer(serializers.ModelSerializer):
         return settings.SITE_URL + thumbnail_url(obj.image, 'medium')
     def get_thumbnail_b(self, obj):
         return settings.SITE_URL + thumbnail_url(obj.image, 'big')
+    def get_thumbnail_b_crop(self, obj):
+        return settings.SITE_URL + thumbnail_url(obj.image, 'big_crop')
 
 class ProductImageSerializer(serializers.ModelSerializer):
     thumb_small = serializers.SerializerMethodField('get_thumbnail_s')
     thumb_medium = serializers.SerializerMethodField('get_thumbnail_m')
     thumb_big = serializers.SerializerMethodField('get_thumbnail_b')
+    url = serializers.SerializerMethodField('get_thumbnail_b_crop')
     class Meta:
         model = models.ProductImage
         fields = '__all__'
@@ -96,6 +100,8 @@ class ProductImageSerializer(serializers.ModelSerializer):
         return settings.SITE_URL + thumbnail_url(obj.image, 'medium')
     def get_thumbnail_b(self, obj):
         return settings.SITE_URL + thumbnail_url(obj.image, 'big')
+    def get_thumbnail_b_crop(self, obj):
+        return settings.SITE_URL + thumbnail_url(obj.image, 'big_crop')
 
 class ProductSerializer(serializers.ModelSerializer):
     images = ProductImageSerializer(many=True, read_only=True)

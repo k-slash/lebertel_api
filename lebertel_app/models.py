@@ -36,9 +36,7 @@ class ProductImage(models.Model):
         verbose_name='products')
     image = ThumbnailerImageField(upload_to=settings.LEBERTEL_IMAGE_FOLDER, blank=True)
     caption = models.CharField(max_length=200, blank=True)
-
-    #: Use display_order to determine which is the "primary" image
-    display_order = models.PositiveIntegerField(default=0)
+    display_order = models.PositiveIntegerField(blank=True, null=True, default=0)
     date_created = models.DateTimeField(auto_now_add=True)
 
 class UserLocation(models.Model):
@@ -143,13 +141,5 @@ class ShowcaseImage(models.Model):
         verbose_name='showcases')
     image = ThumbnailerImageField(upload_to=settings.LEBERTEL_IMAGE_FOLDER, blank=True)
     caption = models.CharField(max_length=200, blank=True)
-
-    #: Use display_order to determine which is the "primary" image
-    display_order = models.PositiveIntegerField(default=0)
+    display_order = models.PositiveIntegerField(blank=True, null=True, default=0)
     date_created = models.DateTimeField(auto_now_add=True)
-
-class ShowcaseType(models.Model):
-    """
-    An image of a showcase
-    """
-    name = models.CharField(max_length=200, blank=True)
