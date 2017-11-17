@@ -96,7 +96,6 @@ class UserShowcase(models.Model):
         ('craftsman_recovery', 'Restauration'),
         ('craftsman_show', 'Spectacle'),
         ('craftsman_tabletterie', 'Tabletterie'),
-        ('craftsman_earth', 'Terre'),
         ('craftsman_textile', 'Textile'),
         ('craftsman_glass', 'Verre'),
         ('artisan_feeding', 'Alimentation'),

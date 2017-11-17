@@ -54,6 +54,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
 class UserShowcaseSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+    showcase_type_lbl = serializers.SerializerMethodField('get_showcase_type')
     category_lbl = serializers.SerializerMethodField('get_category')
     logo_small = serializers.SerializerMethodField('get_thumbnail_s')
     logo_medium = serializers.SerializerMethodField('get_thumbnail_m')
@@ -69,6 +70,8 @@ class UserShowcaseSerializer(serializers.ModelSerializer):
         return settings.SITE_URL + thumbnail_url(obj.logo, 'medium_crop')
     def get_thumbnail_b(self, obj):
         return settings.SITE_URL + thumbnail_url(obj.logo, 'big_crop')
+    def get_showcase_type(self,obj):
+        return obj.get_showcase_type_display()
     def get_category(self,obj):
         return obj.get_category_display()
 
