@@ -54,6 +54,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
 class UserShowcaseSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+    category_lbl = serializers.SerializerMethodField('get_category')
     logo_small = serializers.SerializerMethodField('get_thumbnail_s')
     logo_medium = serializers.SerializerMethodField('get_thumbnail_m')
     logo_big = serializers.SerializerMethodField('get_thumbnail_b')
@@ -68,6 +69,8 @@ class UserShowcaseSerializer(serializers.ModelSerializer):
         return settings.SITE_URL + thumbnail_url(obj.logo, 'medium_crop')
     def get_thumbnail_b(self, obj):
         return settings.SITE_URL + thumbnail_url(obj.logo, 'big_crop')
+    def get_category(self,obj):
+        return obj.get_category_display()
 
 class ShowcaseImageSerializer(serializers.ModelSerializer):
     thumb_small = serializers.SerializerMethodField('get_thumbnail_s')
@@ -107,4 +110,9 @@ class ProductSerializer(serializers.ModelSerializer):
     images = ProductImageSerializer(many=True, read_only=True)
     class Meta:
         model = models.Product
+        fields = '__all__'
+
+class ProfessionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Profession
         fields = '__all__'

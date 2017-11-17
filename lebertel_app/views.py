@@ -241,3 +241,15 @@ class ProductImageGetView(generics.RetrieveUpdateDestroyAPIView):
     def delete(self, request, pk):
         object.delete()
         return Response(data={'result': "OK"}, status=200)
+
+class ProfessionViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    permission_classes = [
+        permissions.AllowAny # Or anon users can't register
+    ]
+    queryset = Profession.objects.all().order_by('name')
+    serializer_class = ProfessionSerializer
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('category',)

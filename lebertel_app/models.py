@@ -76,29 +76,39 @@ class UserShowcase(models.Model):
     A model which holds information about a particular showcase
     """
     SHOWCASE_TYPE = (
+        ('craftsman', 'Artisan d\'art'),
         ('artisan', 'Artisan'),
         ('merchant', 'Commerçant'),
-        ('service', 'Service'),
         ('association', 'Association')
     )
-    ACTIVITY_TYPE = (
-        ('furniture_decoration', 'Ameublement et décoration'),
-        ('architecture_gardens', 'Architecture et jardins'),
-        ('jewellery_goldsmithing_watchmaking', 'Bijouterie, joaillerie, orfèvrerie et horlogerie'),
-        ('ceramic', 'Céramique'),
-        ('leather', 'Cuir'),
-        ('instrumental_factory', 'Facture instrumentale'),
-        ('graphic_design_printing', 'Graphisme et impression'),
-        ('games_toys_mechanical_works', 'Jeux, jouets et ouvrages mécaniques'),
-        ('luminaire', 'Luminaire'),
-        ('metal', 'Métal'),
-        ('fashion_accessories', 'Mode et accessoires'),
-        ('recovery', 'Restauration'),
-        ('show', 'Spectacle'),
-        ('tabletterie', 'Tabletterie'),
-        ('earth', 'Terre'),
-        ('textile', 'Textile'),
-        ('glass', 'Verre')
+    CATEGORY = (
+        ('craftsman_furniture_decoration', 'Ameublement et décoration'),
+        ('craftsman_architecture_gardens', 'Architecture et jardins'),
+        ('craftsman_jewellery_goldsmithing_watchmaking', 'Bijouterie, joaillerie, orfèvrerie et horlogerie'),
+        ('craftsman_ceramic', 'Céramique'),
+        ('craftsman_leather', 'Cuir'),
+        ('craftsman_instrumental_factory', 'Facture instrumentale'),
+        ('craftsman_graphic_design_printing', 'Graphisme et impression'),
+        ('craftsman_games_toys_mechanical_works', 'Jeux, jouets et ouvrages mécaniques'),
+        ('craftsman_luminaire', 'Luminaire'),
+        ('craftsman_metal', 'Métal'),
+        ('craftsman_fashion_accessories', 'Mode et accessoires'),
+        ('craftsman_recovery', 'Restauration'),
+        ('craftsman_show', 'Spectacle'),
+        ('craftsman_tabletterie', 'Tabletterie'),
+        ('craftsman_earth', 'Terre'),
+        ('craftsman_textile', 'Textile'),
+        ('craftsman_glass', 'Verre'),
+        ('artisan_feeding', 'Alimentation'),
+        ('artisan_construction', 'Bâtiment'),
+        ('artisan_manufacturing', 'Fabrication'),
+        ('artisan_services', 'Services'),
+        ('merchant_feeding', 'Alimentation'),
+        ('merchant_culture', 'Culture'),
+        ('merchant_clothing', 'Vestimentaire'),
+        ('association_alimentaire', 'Alimentation'),
+        ('association_culture', 'Culture'),
+        ('association_humanitarian', 'Humanitaire')
     )
     user = models.OneToOneField(
         'auth.User',
@@ -107,9 +117,11 @@ class UserShowcase(models.Model):
         on_delete=models.CASCADE
     )
     showcase_type = models.CharField(max_length=40, choices=SHOWCASE_TYPE, blank=True, null=True, default=None)
-    activity_type = models.CharField(max_length=40, choices=ACTIVITY_TYPE, blank=True, null=True, default=None)
+    category = models.CharField(max_length=40, choices=CATEGORY, blank=True, null=True, default=None)
     name = models.CharField(max_length=255, blank=True, null=True, default=None)
     presentation = models.TextField(blank=True, null=True, default=None)
+    display_custom_profession = models.BooleanField(default=0)
+    profession = models.CharField(max_length=255, blank=True, null=True, default=None)
     address = models.CharField(max_length=255, blank=True, null=True, default=None)
     postcode = models.CharField(max_length=64, blank=True, null=True, default=None)
     city = models.CharField(max_length=100, blank=True, null=True, default=None)
@@ -143,3 +155,10 @@ class ShowcaseImage(models.Model):
     caption = models.CharField(max_length=200, blank=True)
     display_order = models.PositiveIntegerField(blank=True, null=True, default=0)
     date_created = models.DateTimeField(auto_now_add=True)
+
+class Profession(models.Model):
+    """
+    List of services
+    """
+    category = models.CharField(max_length=40, blank=True, null=True, default=None)
+    name = models.CharField(max_length=200, blank=True)
