@@ -160,5 +160,5 @@ class Profession(models.Model):
     """
     List of services
     """
-    category = models.CharField(max_length=40, blank=True, null=True, default=None)
+    category = models.CharField(max_length=200, blank=True, null=True, default=None)
     name = models.CharField(max_length=200, blank=True)
