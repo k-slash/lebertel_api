@@ -20,6 +20,12 @@ from rest_framework import generics, mixins
 from lebertel_app.serializers import *
 from lebertel_app.models import *
 from rest_framework import filters
+from rest_framework.pagination import PageNumberPagination
+
+class HomeShowcaseSetPagination(PageNumberPagination):
+    page_size = 4
+    page_size_query_param = 'page_size'
+    max_page_size = 1000
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -80,6 +86,18 @@ class UserShowcaseViewSet(viewsets.ModelViewSet):
     ]
     queryset = UserShowcase.objects.all()
     serializer_class = UserShowcaseSerializer
+    pagination_class = HomeShowcaseSetPagination
+
+class AllUserShowcaseViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users showcase to be viewed or edited.
+    """
+    permission_classes = [
+        permissions.IsAuthenticatedOrReadOnly
+    ]
+    queryset = UserShowcase.objects.all()
+    serializer_class = UserShowcaseSerializer
+    pagination_class = None
 
 class ShowcaseImageViewSet(viewsets.ModelViewSet):
     """
@@ -90,12 +108,14 @@ class ShowcaseImageViewSet(viewsets.ModelViewSet):
     ]
     queryset = ShowcaseImage.objects.all()
     serializer_class = ShowcaseImageSerializer
+    pagination_class = None
 
 class ShowcaseImageGetView(generics.RetrieveUpdateDestroyAPIView):
     """
     API endpoint that allows users location to be viewed or edited.
     """
     serializer_class = ShowcaseImageSerializer
+    pagination_class = None
 
     def get_object(self, pk=None):
         pk = self.kwargs.get('pk')
@@ -116,6 +136,7 @@ class ShowcaseImageListView(generics.ListAPIView):
         permissions.IsAuthenticatedOrReadOnly
     ]
     serializer_class = ShowcaseImageSerializer
+    pagination_class = None
 
     def get_queryset(self):
         showcase = self.kwargs.get('showcase_pk')
@@ -201,6 +222,7 @@ class ProductViewSet(viewsets.ModelViewSet):
     ]
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    pagination_class = HomeShowcaseSetPagination
 
 class ProductImageViewSet(viewsets.ModelViewSet):
     """
@@ -211,6 +233,7 @@ class ProductImageViewSet(viewsets.ModelViewSet):
     ]
     queryset = ProductImage.objects.all()
     serializer_class = ProductImageSerializer
+    pagination_class = None
 
 class ProductImageListView(generics.ListAPIView):
     """
@@ -220,6 +243,7 @@ class ProductImageListView(generics.ListAPIView):
         permissions.IsAuthenticatedOrReadOnly
     ]
     serializer_class = ProductImageSerializer
+    pagination_class = None
 
     def get_queryset(self):
         product = self.kwargs.get('product_pk')
@@ -230,6 +254,7 @@ class ProductImageGetView(generics.RetrieveUpdateDestroyAPIView):
     API endpoint that allows users location to be viewed or edited.
     """
     serializer_class = ProductImageSerializer
+    pagination_class = None
 
     def get_object(self, pk=None):
         pk = self.kwargs.get('pk')
@@ -249,6 +274,7 @@ class ProfessionViewSet(viewsets.ModelViewSet):
     permission_classes = [
         permissions.AllowAny # Or anon users can't register
     ]
+    pagination_class = None
     queryset = Profession.objects.all().order_by('name')
     serializer_class = ProfessionSerializer
     filter_backends = (filters.SearchFilter,)
