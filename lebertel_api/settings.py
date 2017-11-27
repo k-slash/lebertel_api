@@ -160,7 +160,7 @@ STATIC_ROOT = location('static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = location('media')
 STATIC_ENCRYPT_URL = '/.well-known/'
-STATIC_ENCRYPT_ROOT = location('.well-known')
+STATIC_ENCRYPT_ROOT = location('static')
 THUMBNAIL_DEBUG = True
 THUMBNAIL_KEY_PREFIX = 'oscar-sandbox'
 
