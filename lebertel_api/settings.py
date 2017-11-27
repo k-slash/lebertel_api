@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_gis',
     'corsheaders',
-    'sorl.thumbnail',
     'easy_thumbnails',
     'django_countries',
     'lebertel_api',
