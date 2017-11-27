@@ -38,7 +38,7 @@ router.register(r'professions', views.ProfessionViewSet)
 urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^admin/', admin.site.urls),
-    url(r'^\.well-known/', include('letsencrypt.urls'))
+    url(r'^\.well-known/', include('letsencrypt.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     url('^user/$', views.UserConnectedViewSet.as_view()),
