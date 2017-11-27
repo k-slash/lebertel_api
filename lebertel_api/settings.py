@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'django_extensions',
     'django_filters',
     'compressor',
-    'widget_tweaks',
     'oauth2_provider',
     'rest_framework',
     'rest_framework_gis',
