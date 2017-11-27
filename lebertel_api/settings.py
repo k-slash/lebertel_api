@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
     'easy_thumbnails',
     'django_countries',
+    'letsencrypt',
     'lebertel_api',
     'lebertel_app'
 ]
@@ -159,8 +160,6 @@ STATIC_URL = '/static/'
 STATIC_ROOT = location('static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = location('media')
-STATIC_ENCRYPT_URL = '/.well-known/'
-STATIC_ENCRYPT_ROOT = location('static')
 THUMBNAIL_DEBUG = True
 THUMBNAIL_KEY_PREFIX = 'oscar-sandbox'
 
