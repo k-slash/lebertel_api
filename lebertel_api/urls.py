@@ -50,4 +50,4 @@ urlpatterns = [
     url('^showcases/(?P<showcase_pk>[0-9]+)/images/(?P<pk>[0-9]+)$', views.ShowcaseImageGetView.as_view()),
     url('^products/(?P<product_pk>[0-9]+)/images/', views.ProductImageListView.as_view()),
     url('^products/(?P<product_pk>[0-9]+)/images/(?P<pk>[0-9]+)$', views.ProductImageGetView.as_view()),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_ENCRYPT_URL, document_root=settings.STATIC_ENCRYPT_ROOT)

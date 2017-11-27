@@ -93,10 +93,16 @@ WSGI_APPLICATION = 'lebertel_api.wsgi.application'
 
 DATABASES = {
     'default': {
+        #'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        #'NAME': 'lebertel_db',
+        #'USER': 'postgres',
+        #'PASSWORD': 'Stjo97480',
+        #'HOST': 'localhost',
+        #'PORT': '5432'
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'lebertel_db',
-        'USER': 'postgres',
-        'PASSWORD': 'Stjo97480',
+        'NAME': 'lebertel',
+        'USER': 'lebertel',
+        'PASSWORD': 't9rzsXZ4',
         'HOST': 'localhost',
         'PORT': '5432'
     }
@@ -146,11 +152,15 @@ STATICFILES_DIR = {
     os.path.join(BASE_DIR, 'static')
 }
 
-SITE_URL = 'http://localhost:8000'
+SITE_URL = 'http://37.59.125.147:8000'
+#SITE_URL = 'http://localhost:8000'
+
 STATIC_URL = '/static/'
 STATIC_ROOT = location('static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = location('media')
+STATIC_ENCRYPT_URL = '/.well-known/'
+STATIC_ENCRYPT_ROOT = location('.well-known')
 THUMBNAIL_DEBUG = True
 THUMBNAIL_KEY_PREFIX = 'oscar-sandbox'
 
