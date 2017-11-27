@@ -152,7 +152,7 @@ STATICFILES_DIR = {
     os.path.join(BASE_DIR, 'static')
 }
 
-SITE_URL = 'http://37.59.125.147:8000'
+SITE_URL = 'http://api.lebertel.com'
 #SITE_URL = 'http://localhost:8000'
 
 STATIC_URL = '/static/'
