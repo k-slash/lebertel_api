@@ -12,6 +12,7 @@ from django.shortcuts import get_list_or_404, get_object_or_404
 from rest_framework import permissions
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
+from rest_framework.parsers import FileUploadParser
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -169,6 +170,34 @@ class UserConnectedProfileView(generics.RetrieveUpdateAPIView):
         return get_object_or_404(UserProfile, user=user)
 
     def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+class UserAvatarUploadView(generics.RetrieveUpdateAPIView):
+    """
+    API endpoint that allows users location to be viewed or edited.
+    """
+    serializer_class = UserProfileSerializer
+    lookup_field = 'user'
+
+    def get_object(self):
+        user = self.request.user
+        return get_object_or_404(UserProfile, user=user)
+
+    def post(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+class UserShowcaseLogoUploadView(generics.RetrieveUpdateAPIView):
+    """
+    API endpoint that allows users location to be viewed or edited.
+    """
+    serializer_class = UserShowcaseSerializer
+    lookup_field = 'user'
+
+    def get_object(self):
+        user = self.request.user
+        return get_object_or_404(UserShowcase, user=user)
+
+    def post(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
 
 class UserConnectedProductsListView(generics.ListAPIView):

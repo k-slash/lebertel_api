@@ -42,6 +42,8 @@ urlpatterns = [
     url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     url('^user/$', views.UserConnectedViewSet.as_view()),
     url('^user/profile/', views.UserConnectedProfileView.as_view()),
+    url('^user/uploadAvatar', views.UserAvatarUploadView.as_view()),
+    url('^user/uploadShowcaseLogo', views.UserShowcaseLogoUploadView.as_view()),
     url('^user/location/', views.UserConnectedLocationView.as_view()),
     url('^user/showcase/', views.UserConnectedShowcaseView.as_view()),
     url('^user/products/', views.UserConnectedProductsListView.as_view()),
