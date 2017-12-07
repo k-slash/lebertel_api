@@ -67,8 +67,7 @@ class UserProfile(models.Model):
         related_name='profile',
         on_delete=models.CASCADE
     )
-    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+262692121212'. Up to 15 digits allowed.")
-    phone_number = models.CharField(validators=[phone_regex], max_length=15, blank=True, null=True, default=None)
+    phone_number = models.CharField(max_length=15, blank=True, null=True, default=None)
     avatar = ThumbnailerImageField(upload_to=settings.LEBERTEL_IMAGE_FOLDER, blank=True, null=True, default=None)
     pro = models.BooleanField(default=1)
 
@@ -132,8 +131,7 @@ class UserShowcase(models.Model):
     display_email = models.BooleanField(default=1)
     email = models.EmailField(max_length=70, blank=True, null=True, default=None)
     display_phone_number = models.BooleanField(default=1)
-    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+262692121212'. Up to 15 digits allowed.")
-    phone_number = models.CharField(validators=[phone_regex], max_length=15, blank=True, null=True, default=None)
+    phone_number = models.CharField(max_length=15, blank=True, null=True, default=None)
     facebook = models.CharField(max_length=255, blank=True, null=True, default=None)
     linkedin = models.CharField(max_length=255, blank=True, null=True, default=None)
     twitter = models.CharField(max_length=255, blank=True, null=True, default=None)
