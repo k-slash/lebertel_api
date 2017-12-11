@@ -132,6 +132,7 @@ class UserShowcase(models.Model):
     email = models.EmailField(max_length=70, blank=True, null=True, default=None)
     display_phone_number = models.BooleanField(default=1)
     phone_number = models.CharField(max_length=15, blank=True, null=True, default=None)
+    website = models.CharField(max_length=255, blank=True, null=True, default=None)
     facebook = models.CharField(max_length=255, blank=True, null=True, default=None)
     linkedin = models.CharField(max_length=255, blank=True, null=True, default=None)
     twitter = models.CharField(max_length=255, blank=True, null=True, default=None)
