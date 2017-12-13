@@ -69,6 +69,7 @@ class UserProfile(models.Model):
         related_name='profile',
         on_delete=models.CASCADE
     )
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False)
     phone_number = models.CharField(max_length=15, blank=True, null=True, default=None)
     avatar = ThumbnailerImageField(upload_to=settings.LEBERTEL_IMAGE_FOLDER, blank=True, null=True, default=None)
     pro = models.BooleanField(default=1)
