@@ -6,6 +6,7 @@ from django.conf import settings
 from django.core.validators import RegexValidator
 from django_countries.fields import CountryField
 from easy_thumbnails.fields import ThumbnailerImageField
+import uuid
 
 
 
@@ -17,6 +18,7 @@ class Product(models.Model):
         related_name='products',
         on_delete=models.CASCADE)
     name     = models.CharField(max_length=255)
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False)
     date_created = models.DateTimeField(auto_now_add=True)
     price    = models.FloatField()
     short_description = models.CharField(max_length=500, blank=True, null=True, default=None)
@@ -115,6 +117,7 @@ class UserShowcase(models.Model):
         related_name='showcase',
         on_delete=models.CASCADE
     )
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False)
     showcase_type = models.CharField(max_length=255, choices=SHOWCASE_TYPE, blank=True, null=True, default=None)
     category = models.CharField(max_length=255, choices=CATEGORY, blank=True, null=True, default=None)
     name = models.CharField(max_length=255, blank=True, null=True, default=None)
