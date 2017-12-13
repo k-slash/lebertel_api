@@ -32,6 +32,7 @@ router.register(r'locations', views.UserLocationViewSet)
 router.register(r'profiles', views.UserProfileViewSet)
 router.register(r'showcase/images', views.ShowcaseImageViewSet)
 router.register(r'products', views.ProductViewSet)
+router.register(r'productsById', views.ProductByIdViewSet)
 router.register(r'product/images', views.ProductImageViewSet)
 router.register(r'professions', views.ProfessionViewSet)
 

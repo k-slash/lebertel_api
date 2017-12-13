@@ -266,6 +266,17 @@ class ProductViewSet(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     pagination_class = HomeShowcaseSetPagination
 
+class ProductByIdViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows products to be viewed or edited.
+    """
+    permission_classes = [
+        permissions.IsAuthenticatedOrReadOnly
+    ]
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    pagination_class = HomeShowcaseSetPagination
+
 class ProductImageViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows products images to be viewed or edited.
