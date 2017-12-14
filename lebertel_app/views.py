@@ -85,18 +85,7 @@ class UserShowcaseViewSet(viewsets.ModelViewSet):
     permission_classes = [
         permissions.IsAuthenticatedOrReadOnly
     ]
-    lookup_field = 'uuid'
-    queryset = UserShowcase.objects.all()
-    serializer_class = UserShowcaseSerializer
-    pagination_class = HomeShowcaseSetPagination
-
-class UserShowcaseByIdViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users showcase to be viewed or edited.
-    """
-    permission_classes = [
-        permissions.IsAuthenticatedOrReadOnly
-    ]
+    #lookup_field = 'uuid'
     queryset = UserShowcase.objects.all()
     serializer_class = UserShowcaseSerializer
     pagination_class = HomeShowcaseSetPagination
@@ -261,18 +250,7 @@ class ProductViewSet(viewsets.ModelViewSet):
     permission_classes = [
         permissions.IsAuthenticatedOrReadOnly
     ]
-    lookup_field = 'uuid'
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-    pagination_class = HomeShowcaseSetPagination
-
-class ProductByIdViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows products to be viewed or edited.
-    """
-    permission_classes = [
-        permissions.IsAuthenticatedOrReadOnly
-    ]
+    #lookup_field = 'uuid'
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     pagination_class = HomeShowcaseSetPagination
