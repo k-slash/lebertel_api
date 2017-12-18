@@ -207,6 +207,7 @@ class UserConnectedProductsListView(generics.ListAPIView):
     """
     serializer_class = ProductSerializer
     lookup_field = 'owner'
+    pagination_class = None
 
     def get_queryset(self):
         owner = self.request.user
@@ -254,6 +255,18 @@ class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     pagination_class = HomeShowcaseSetPagination
+
+class AllProductViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows products to be viewed or edited.
+    """
+    permission_classes = [
+        permissions.IsAuthenticatedOrReadOnly
+    ]
+    #lookup_field = 'uuid'
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    pagination_class = None
 
 class ProductImageViewSet(viewsets.ModelViewSet):
     """
