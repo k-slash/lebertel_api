@@ -79,7 +79,7 @@ class ShowcaseImageSerializer(serializers.ModelSerializer):
     thumb_small = serializers.SerializerMethodField('get_thumbnail_s')
     thumb_medium = serializers.SerializerMethodField('get_thumbnail_m')
     thumb_big = serializers.SerializerMethodField('get_thumbnail_b')
-    url = serializers.SerializerMethodField('get_thumbnail_b_crop')
+    url = serializers.SerializerMethodField('get_thumbnail_m')
     class Meta:
         model = models.ShowcaseImage
         fields = '__all__'
