@@ -90,6 +90,17 @@ class UserShowcaseViewSet(viewsets.ModelViewSet):
     serializer_class = UserShowcaseSerializer
     pagination_class = HomeShowcaseSetPagination
 
+class UserShowcaseByIdViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users showcase to be viewed or edited.
+    """
+    permission_classes = [
+        permissions.IsAuthenticatedOrReadOnly
+    ]
+    queryset = UserShowcase.objects.all()
+    serializer_class = UserShowcaseSerializer
+    pagination_class = HomeShowcaseSetPagination
+
 class AllUserShowcaseViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users showcase to be viewed or edited.
