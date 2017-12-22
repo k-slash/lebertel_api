@@ -85,7 +85,7 @@ class UserShowcaseViewSet(viewsets.ModelViewSet):
     permission_classes = [
         permissions.IsAuthenticatedOrReadOnly
     ]
-    #lookup_field = 'uuid'
+    lookup_field = 'slug_name'
     queryset = UserShowcase.objects.all()
     serializer_class = UserShowcaseSerializer
     pagination_class = HomeShowcaseSetPagination
@@ -114,7 +114,7 @@ class ShowcaseImageViewSet(viewsets.ModelViewSet):
 
 class ShowcaseImageGetView(generics.RetrieveUpdateDestroyAPIView):
     """
-    API endpoint that allows users location to be viewed or edited.
+    API endpoint that allows showcase images to be viewed or edited.
     """
     serializer_class = ShowcaseImageSerializer
     pagination_class = None
@@ -200,6 +200,48 @@ class UserShowcaseLogoUploadView(generics.RetrieveUpdateAPIView):
 
     def post(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
+
+class ShowcaseUpdateNbViews(generics.ListAPIView):
+    """
+    API endpoint that allows update showcase number views.
+    """
+    permission_classes = [
+        permissions.AllowAny # Or anon users can't register
+    ]
+    serializer_class = UserShowcaseNbViewsSerializer
+    pagination_class = None
+
+    def get_queryset(self):
+        user = self.kwargs.get('showcase_pk')
+        return UserShowcase.objects.filter(user=user)
+
+    def put(self, request, *args, **kwargs):
+        user = self.kwargs.get('showcase_pk')
+        showcase = UserShowcase.objects.get(user=user)
+        showcase.nb_views = request.data['nb_views']
+        showcase.save(update_fields=['nb_views'])
+        return Response()
+
+class ShowcaseUpdateNbLikes(generics.ListAPIView):
+    """
+    API endpoint that allows update showcase number views.
+    """
+    permission_classes = [
+        permissions.AllowAny # Or anon users can't register
+    ]
+    serializer_class = UserShowcaseNbViewsSerializer
+    pagination_class = None
+
+    def get_queryset(self):
+        user = self.kwargs.get('showcase_pk')
+        return UserShowcase.objects.filter(user=user)
+
+    def put(self, request, *args, **kwargs):
+        user = self.kwargs.get('showcase_pk')
+        showcase = UserShowcase.objects.get(user=user)
+        showcase.nb_likes = request.data['nb_likes']
+        showcase.save(update_fields=['nb_likes'])
+        return Response()
 
 class UserConnectedProductsListView(generics.ListAPIView):
     """

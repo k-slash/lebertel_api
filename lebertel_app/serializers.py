@@ -64,6 +64,7 @@ class UserShowcaseSerializer(serializers.ModelSerializer):
         country = CountryField()
         geo_field = "point"
         fields = '__all__'
+        read_only_fields = ('slug_name',)
     def get_thumbnail_s(self, obj):
         return settings.SITE_URL + thumbnail_url(obj.logo, 'small_crop')
     def get_thumbnail_m(self, obj):
@@ -74,6 +75,11 @@ class UserShowcaseSerializer(serializers.ModelSerializer):
         return obj.get_showcase_type_display()
     def get_category(self,obj):
         return obj.get_category_display()
+
+class UserShowcaseNbViewsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.UserShowcase
+        fields = ('user', 'nb_views', 'nb_likes')
 
 class ShowcaseImageSerializer(serializers.ModelSerializer):
     thumb_small = serializers.SerializerMethodField('get_thumbnail_s')

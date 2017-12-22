@@ -6,6 +6,7 @@ from django.conf import settings
 from django.core.validators import RegexValidator
 from django_countries.fields import CountryField
 from easy_thumbnails.fields import ThumbnailerImageField
+from django.template.defaultfilters import slugify
 import uuid
 
 
@@ -24,9 +25,14 @@ class Product(models.Model):
     short_description = models.CharField(max_length=500, blank=True, null=True, default=None)
     description = models.TextField(blank=True, null=True, default=None)
     size = models.CharField(max_length=500, blank=True, null=True, default=None)
+    weight = models.CharField(max_length=255, blank=True, null=True, default=None)
+    volume = models.CharField(max_length=255, blank=True, null=True, default=None)
     colors = models.CharField(max_length=500, blank=True, null=True, default=None)
     materials = models.TextField(blank=True, null=True, default=None)
     ingredients = models.TextField(blank=True, null=True, default=None)
+    quantity = models.IntegerField(blank=True, null=True, default=None)
+    nb_views = models.IntegerField(default=0)
+    likes = models.IntegerField(default=0)
 
 class ProductImage(models.Model):
     """
@@ -122,6 +128,7 @@ class UserShowcase(models.Model):
     showcase_type = models.CharField(max_length=255, choices=SHOWCASE_TYPE, blank=True, null=True, default=None)
     category = models.CharField(max_length=255, choices=CATEGORY, blank=True, null=True, default=None)
     name = models.CharField(max_length=255, blank=True, null=True, default=None)
+    slug_name = models.SlugField(max_length=255, blank=True, null=True, default=None)
     presentation = models.TextField(blank=True, null=True, default=None)
     display_custom_profession = models.BooleanField(default=0)
     profession = models.CharField(max_length=255, blank=True, null=True, default=None)
@@ -141,9 +148,16 @@ class UserShowcase(models.Model):
     linkedin = models.CharField(max_length=255, blank=True, null=True, default=None)
     twitter = models.CharField(max_length=255, blank=True, null=True, default=None)
     pinterest = models.CharField(max_length=255, blank=True, null=True, default=None)
+    instagram = models.CharField(max_length=255, blank=True, null=True, default=None)
     timetable = models.TextField(blank=True, null=True, default=None)
     informations = models.TextField(blank=True, null=True, default=None)
     logo = ThumbnailerImageField(upload_to=settings.LEBERTEL_IMAGE_FOLDER, blank=True, null=True, default=None)
+    nb_views = models.IntegerField(default=0)
+    nb_likes = models.IntegerField(default=0)
+
+    def save(self, *args, **kwargs):
+        self.slug_name = slugify(self.name).replace('-', '')
+        super(UserShowcase, self).save(*args, **kwargs)
 
 class ShowcaseImage(models.Model):
     """

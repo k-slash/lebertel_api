@@ -51,6 +51,8 @@ urlpatterns = [
     url('^user/(?P<user_id>[0-9]+)/products/', views.UserProductsListView.as_view()),
     url('^showcases/(?P<showcase_pk>[0-9]+)/images/', views.ShowcaseImageListView.as_view()),
     url('^showcases/(?P<showcase_pk>[0-9]+)/images/(?P<pk>[0-9]+)$', views.ShowcaseImageGetView.as_view()),
+    url('^showcases/(?P<showcase_pk>[0-9]+)/updateNbViews', views.ShowcaseUpdateNbViews.as_view()),
+    url('^showcases/(?P<showcase_pk>[0-9]+)/updateNbLikes', views.ShowcaseUpdateNbLikes.as_view()),
     url('^products/(?P<product_pk>[0-9]+)/images/', views.ProductImageListView.as_view()),
     url('^products/(?P<product_pk>[0-9]+)/images/(?P<pk>[0-9]+)$', views.ProductImageGetView.as_view()),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
